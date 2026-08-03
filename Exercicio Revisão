@@ -1,0 +1,12 @@
+//LISTA DE EXERCÍCIOS DE REVISÃO
+
+Dado os programas criados em laboratório, com uso de menu e vetor, crie as seguintes melhorias:
+
+a) crie uma opção no menu que calcule e exiba a média aritmética dos valores do vetor
+b) crie uma opção no menu que calcule e exiba a mediana dos valores do vetor
+c) crie uma opção do menu que localize e exiba o MENOR valor e o MAIOR valor do vetor
+
+Códigos Terminal - VS CODE
+
+gcc nomedoarquivo.c -o nomedoarquivo
+.\nomedoarquivo.exe
