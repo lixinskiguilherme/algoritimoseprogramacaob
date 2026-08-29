@@ -1,0 +1,94 @@
+//1. Cadastro simples de alunos
+//Crie uma struct Aluno com os campos: nome, matricula e nota. Faça um programa que leia 5 alunos , armazene-os em um vetor de structs e exiba todos na tela.
+
+#include<iostream>
+#include<string>
+#include<limits>
+
+#define TAM 5
+
+using namespace std;
+
+struct Aluno {
+	string nome;
+	int matricula;
+	float nota;
+};
+
+int main(){
+	cout <<"Faça um programa que leia 5 alunos , armazene-os em um vetor de structs e exiba todos na tela." <<endl;
+	Aluno alunos [TAM];
+	int quantidadeInseridos = 0;
+	int opcao;
+	string nome;
+	
+	do {
+		cout<<"MENU" <<endl;
+		cout<<"1 - Cadastrar nomes dos alunos" <<endl;
+		cout<<"2 - Cadastrar matriculas dos alunos" <<endl;
+		cout<<"3 - Cadastrar notas dos alunos" <<endl;
+		cout<<"4 - Listar" <<endl;
+		cout<<"5 - Sair" <<endl;
+		cout<<"Opcao: ";
+		cin>> opcao;
+		cin.ignore(numeric_limits<streamsize>:: max(), '\n');
+	
+		switch(opcao){
+			case 1: // cadastrar nomes
+				cout<<"Cadastre o nome do aluno" <<endl;
+				if (quantidadeInseridos < TAM){
+					cout<<"Nome do aluno: " <<quantidadeInseridos +1 << ": ";
+					getline(cin, alunos[quantidadeInseridos].nome);
+					quantidadeInseridos++;
+					cout<<"Nome cadastrado com sucesso" <<endl;
+				} else{
+					cout<<"VETOR LOTADO!"<<endl;
+				}
+				break;
+				
+			case 2: // Cadastrar matriculas
+				cout<<"Cadastre matricula do aluno" <<endl;
+				if (quantidadeInseridos >0){
+					cout<<"Matricula do ultimo aluno: ";
+					cin>> alunos[quantidadeInseridos - 1].matricula;
+					cout<<"Matricula cadastrada com sucesso" <<endl;
+				} else{
+					cout<<"NENHUM ALUNO CADASTRADO!"<<endl;
+				}
+				break;
+				
+			case 3: // cadastrar notas;
+				cout<<"Cadastre a nota do aluno" <<endl;
+				if (quantidadeInseridos >0){
+					cout<<"Nota do ultimo aluno: ";
+					cin>> alunos[quantidadeInseridos - 1].nota;
+					cout<<"Nota cadastrada com sucesso" <<endl;
+				} else{
+					cout<<"NENHUM ALUNO CADASTRADO!"<<endl;
+				}
+				break;
+			case 4: // listar alunos
+				cout<<"Listar os alunos" <<endl;
+				if (quantidadeInseridos == 0){
+					cout<<"Nenhum aluno cadastrado";
+				} else{
+					cout<<"----------------"<<endl;
+					for (int i = 0; i<quantidadeInseridos; i++){
+						cout<<"Aluno" <<i + 1 << " : " <<endl;
+						cout<<"Nome: " <<alunos[i].nome <<endl;
+						cout<<"Matricula: " <<alunos[i].matricula <<endl;
+						cout<<"Nota: " <<alunos[i].nota <<endl;
+						cout<<"----------------"<<endl;
+				}
+		}
+				break;
+			case 5:
+				cout<<"Saindo ..." <<endl;
+				break;
+			default:
+				cout<<"Opcao invalida" <<endl;
+		}
+	}while (opcao !=5);	
+		
+	return 0;
+}
