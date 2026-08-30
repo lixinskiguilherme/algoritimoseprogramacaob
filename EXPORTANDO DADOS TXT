@@ -1,0 +1,170 @@
+//EXPORTANDO DADOS PARA ARQUIVO TXT
+
+#include<iostream>
+#include<string>
+#include<limits>
+#include<iomanip>
+#include<fstream> //Biblioteca para manipular arquivos
+#include<cstdlib> // Para system("cls") ou system ("clear")
+
+#define TAM 5
+#define ARQUIVO "alunox.txt"
+
+using namespace std;
+
+struct Aluno {
+	string nome;
+	int matricula;
+	float nota1;
+	float nota2;
+	float nota3;
+	float media;
+};
+
+//FUNCAO PARA SALVAR ALUNOS NO ARQUIVO - OBRIGATORIO SE FOR EXPORTAR TXT
+void salvarAlunos(Aluno alunos[], int quantidade){
+	ofstream arquivo(ARQUIVO);
+	
+	if(!ARQUIVO){
+		cout<<"ERRO: Nao foi possivel abrir o arquivo para salvar" <<endl;
+		return;
+	}
+	for (int i = 0; i<quantidade; i++){
+		arquivo <<alunos[i].nome << ";"
+				<<alunos[i].matricula << ";"
+				<<alunos[i].nota1 << ";"
+				<<alunos[i].nota2 << ";"
+				<<alunos[i].nota3 << ";"
+				<<alunos[i].media <<endl;
+	}
+	arquivo.close();
+	cout<<"Dados salvos com sucesso em " <<ARQUIVO <<"!"<<endl;
+}
+
+int main(){
+	cout <<"Faça um programa que leia 5 alunos , armazene-os em um vetor de structs e exiba todos na tela." <<endl;
+	Aluno alunos [TAM];
+	int quantidadeInseridos = 0;
+	int opcao;
+		
+	do {
+		cout<<"MENU" <<endl;
+		cout<<"1 - Cadastrar aluno (nome, matricula e nota)" <<endl;
+		cout<<"2 - Listar alunos" <<endl;
+		cout<<"3 - Buscar aluno por nome" <<endl;
+		cout<<"4 - Salvar dados em arquivo" <<endl;
+		cout<<"5 - Sair" <<endl;
+		cout<<"Opcao: ";
+		cin>> opcao;
+		cin.ignore(numeric_limits<streamsize>:: max(), '\n');
+	
+		switch(opcao){
+			case 1: // CADASTRO COMPLETO DO ALUNO
+				cout<<"Cadastre os dados do aluno" <<endl;
+				if (quantidadeInseridos < TAM){
+					cout<<"Nome do aluno: " <<quantidadeInseridos +1 << ": ";
+					
+					cout<<"Nome: ";
+					getline(cin, alunos[quantidadeInseridos].nome);
+					
+					cout<<"Matricula: ";
+					cin>> alunos[quantidadeInseridos].matricula;
+					
+					cout<<"Nota 1: ";
+					cin>> alunos[quantidadeInseridos].nota1;
+					
+					cout<<"Nota 2: ";
+					cin>> alunos[quantidadeInseridos].nota2;
+					
+					cout<<"Nota 3: ";
+					cin>> alunos[quantidadeInseridos].nota3;
+					
+					// CALCULA A MÉDIA
+                    alunos[quantidadeInseridos].media = 
+                        (alunos[quantidadeInseridos].nota1 + 
+                         alunos[quantidadeInseridos].nota2 + 
+                         alunos[quantidadeInseridos].nota3) / 3.0;
+					
+					quantidadeInseridos++;
+					cout<<"Nome cadastrado com sucesso" <<endl;
+				} else{
+					cout<<"VETOR LOTADO!"<<endl;
+			}
+				break;
+				
+			case 2: // listar alunos
+				cout<<"Listar os alunos" <<endl;
+				if (quantidadeInseridos == 0){
+					cout<<"Nenhum aluno cadastrado";
+				} else{
+					cout<<"------------------------------------------------------------"<<endl;
+					cout<< "|Nome                     |Matricula |   N1      |  N2       | N3        | Media   |Situacao" <<endl;
+					cout<<"------------------------------------------------------------"<<endl;
+					
+					for (int i = 0; i<quantidadeInseridos; i++){
+						// Definindo a situação do aluno (aprovado ou reprovado)
+						string situacao;
+						if (alunos[i].media >=6.0){
+							situacao = "Aprovado";
+						}else {
+							situacao ="Reprovado";
+						}
+						cout<<" " <<setw(1) <<i+1 << " | "
+							<< setw(20) <<left <<alunos[i].nome.substr(0,19)<< " |"
+							<< setw(9) << alunos[i].matricula << " | "
+							<< setw(9) << alunos[i].nota1 << " | "
+							<< setw(9) << alunos[i].nota2 << " | "
+							<< setw(9) << alunos[i].nota3 << " | "
+							<< fixed <<setprecision(1) <<setw(6) <<alunos [i].media << " | "
+							<<situacao << endl;
+				}
+				
+		}
+				break;
+				
+			case 3: // buscar alunos por NOME
+				cout<<"Digite o nome do aluno que voce deseja buscar" <<endl;
+				if (quantidadeInseridos == 0){
+					cout<<"String nome vazio... nao e possivel pesquisar" <<endl;
+			} else {
+					string nomeBusca;
+					cout<<"Nome do aluno para pesquisa:  ";
+					getline(cin, nomeBusca);
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					
+					int quantidadeLocalizados = 0;
+					for (int i = 0; i <quantidadeInseridos; i++){
+						if (alunos[i].nome == nomeBusca){
+							cout <<"\n --- ALUNO ENCONTRADO ---" <<endl;
+							cout <<"Nome: "<<alunos[i].nome <<endl;
+							cout <<"Matricula: "<<alunos[i].matricula <<endl;
+							cout <<"Nota1: "<<alunos[i].nota1 <<endl;
+							cout <<"Nota2: "<<alunos[i].nota2 <<endl;
+							cout <<"Nota3: "<<alunos[i].nota3 <<endl;
+							cout <<"Media: "<<alunos[i].media <<endl;
+							
+							if (alunos[i].media>=6.0){
+								cout<<"Situacao: APROVADO" <<endl;
+							} else{
+								cout<<"Situacao: REPROVADO" <<endl;
+							}
+						}
+					}
+					
+			}
+					break;		
+			
+			case 4: // SALVAR DADOS EM ARQUIVO - NOVO
+                salvarAlunos(alunos, quantidadeInseridos);
+                break;
+                
+			case 5:
+				cout<<"Saindo ..." <<endl;
+				break;
+			default:
+				cout<<"Opcao invalida" <<endl;
+		}
+	}while (opcao !=5);	
+		
+	return 0;
+}
