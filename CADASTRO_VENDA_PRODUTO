@@ -1,0 +1,100 @@
+//1. Cadastro Venda
+//Crie uma struct Venda com codigo, produto, quantidade, valor_unitario, total e data venda
+
+#include<iostream>
+#include<string>
+#include<limits>
+#include<iomanip>
+
+#define TAM 5
+
+using namespace std;
+
+struct Venda {
+	int codigo;
+	string produto;
+	float quantidade;
+	float preco;
+	float total;
+	string dataVenda;
+	};
+
+int main(){
+	Venda vendas [TAM];
+	int quantidadeInseridos = 0;
+	int opcao;
+		
+	do {
+		cout<<"MENU" <<endl;
+		cout<<"1 - Cadastrar Produto (Codigo, produto, quantidade, valor_unitario e data da venda)" <<endl;
+		cout<<"2 - Listar Produtos" <<endl;
+		cout<<"3 - Sair" <<endl;
+		cout<<"Opcao: ";
+		cin>> opcao;
+		cin.ignore(numeric_limits<streamsize>:: max(), '\n');
+	
+		switch(opcao){
+			case 1: // CADASTRO COMPLETO DA VENDA
+				cout<<"Cadastre os dados do produto" <<endl;
+				if (quantidadeInseridos < TAM){
+					
+					cout<<"Codigo: ";
+					cin>> vendas[quantidadeInseridos].codigo;
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						
+					cout<<"Produto: ";
+					getline(cin, vendas[quantidadeInseridos].produto);
+								
+					cout<<"Quantidade: ";
+					cin>> vendas[quantidadeInseridos].quantidade;
+					
+					cout<<"Preco: ";
+					cin>> vendas[quantidadeInseridos].preco;
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					
+					cout<<"Data da Venda (dd/mm/aaaa): ";
+					getline (cin, vendas[quantidadeInseridos].dataVenda);
+					
+										
+					// CALCULA O TOTAL
+                    vendas[quantidadeInseridos].total = 
+                        (vendas[quantidadeInseridos].quantidade * 
+                         vendas[quantidadeInseridos].preco);
+					
+					quantidadeInseridos++;
+					cout<<"Venda cadastrada com sucesso" <<endl;
+				} else{
+					cout<<"NENHUMA VENDA CADASTRADA!"<<endl;
+				}
+				break;
+				
+			case 2: // LISTAR PRODUTOS
+				cout<<"Listar os produtos cadastrados" <<endl;
+				if (quantidadeInseridos == 0){
+					cout<<"Nenhum produto cadastrado";
+				} else{
+					cout<<"----------------------------------------------------------------------------"<<endl;
+					cout<< "|Codigo   |Descricao             |QTDADE|VALOR     |TOTAL     | DT VENDA    " <<endl;
+					cout<<"----------------------------------------------------------------------------"<<endl;
+					
+					for(int i = 0; i <quantidadeInseridos; i++){	
+							cout<<" | " <<setw(6) <<vendas [i].codigo << " | "
+							<< setw(20) <<left <<vendas[i].produto.substr(0,19)<< " |"
+							<< setw(5) << vendas[i].quantidade << " | "
+							<< fixed <<setprecision(2) <<setw (8) << vendas[i].preco << " | "
+							<< setw(8) << vendas[i].total << " | "
+							<< setw(12) << vendas[i].dataVenda << " | "<< endl;
+				}
+	}
+				break;
+				
+			case 3:
+				cout<<"Saindo ..." <<endl;
+				break;
+			default:
+				cout<<"Opcao invalida" <<endl;
+		}
+	}while (opcao !=3);	
+		
+	return 0;
+}
