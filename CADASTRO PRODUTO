@@ -1,0 +1,93 @@
+//1. Cadastro Produto
+//Crie uma struct Produto com: codigo, descricao, preco e quantidade.
+
+#include<iostream>
+#include<string>
+#include<limits>
+#include<iomanip>
+
+#define TAM 5
+
+using namespace std;
+
+struct Produto {
+	int codigo;
+	string descricao;
+	int quantidade;
+	float preco;
+	float total;
+	};
+
+int main(){
+	Produto produtos [TAM];
+	int quantidadeInseridos = 0;
+	int opcao;
+		
+	do {
+		cout<<"MENU" <<endl;
+		cout<<"1 - Cadastrar Produto (Codigo, descricao, quantidade e valor)" <<endl;
+		cout<<"2 - Listar Produtos" <<endl;
+		cout<<"3 - Sair" <<endl;
+		cout<<"Opcao: ";
+		cin>> opcao;
+		cin.ignore(numeric_limits<streamsize>:: max(), '\n');
+	
+		switch(opcao){
+			case 1: // CADASTRO COMPLETO DO PRODUTO
+				cout<<"Cadastre os dados do produto" <<endl;
+				if (quantidadeInseridos < TAM){
+					
+					cout<<"Codigo: ";
+					cin>> produtos[quantidadeInseridos].codigo;
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						
+					cout<<"Descricao: ";
+					getline(cin, produtos[quantidadeInseridos].descricao);
+								
+					cout<<"Quantidade: ";
+					cin>> produtos[quantidadeInseridos].quantidade;
+					
+					cout<<"Preco: ";
+					cin>> produtos[quantidadeInseridos].preco;
+										
+					// CALCULA O TOTAL
+                    produtos[quantidadeInseridos].total = 
+                        (produtos[quantidadeInseridos].quantidade * 
+                         produtos[quantidadeInseridos].preco);
+					
+					quantidadeInseridos++;
+					cout<<"Nome cadastrado com sucesso" <<endl;
+				} else{
+					cout<<"VETOR LOTADO!"<<endl;
+				}
+				break;
+				
+			case 2: // LISTAR PRODUTOS
+				cout<<"Listar os produtos cadastrados" <<endl;
+				if (quantidadeInseridos == 0){
+					cout<<"Nenhum produto cadastrado";
+				} else{
+					cout<<"------------------------------------------------------------"<<endl;
+					cout<< "|Codigo   |Descricao             |QTDADE|VALOR     |TOTAL     " <<endl;
+					cout<<"------------------------------------------------------------"<<endl;
+					
+					for(int i = 0; i <quantidadeInseridos; i++){	
+							cout<<" | " <<setw(6) <<produtos [i].codigo << " | "
+							<< setw(20) <<left <<produtos[i].descricao.substr(0,19)<< " |"
+							<< setw(4) << produtos[i].quantidade << " | "
+							<< fixed <<setprecision(2) <<setw (8) << produtos[i].preco << " | "
+							<< setw(8) << produtos[i].total << " | "<< endl;
+				}
+	}
+				break;
+				
+			case 3:
+				cout<<"Saindo ..." <<endl;
+				break;
+			default:
+				cout<<"Opcao invalida" <<endl;
+		}
+	}while (opcao !=3);	
+		
+	return 0;
+}
