@@ -1,0 +1,27 @@
+🖥️ Sistema Computacional: 
+          Manipulação de Arquivos
+                    No desenvolvimento de programas, quando manipulamos dados externos, trabalhamos com a integração de dois universos distintos:
+
+          1. Memória Principal (RAM)
+Características: Memória volátil, rápida e de acesso direto pelo processador. 
+É onde as variáveis do seu programa residem enquanto ele está rodando.
+O "Procurador" (File Handler / Ponteiro): A memória RAM não guarda o arquivo em si, mas sim uma referência (um ponteiro) para ele.Como funciona: Essa variável especial funciona como um "procurador" ou "intermediário". 
+Ela armazena o endereço físico de onde o arquivo está na memória secundária. 
+Através desse procurador, o programa ganha a capacidade de ler (Read) e escrever (Write) dados no arquivo.
+
+          2. Memória Secundária (Dispositivo de Armazenamento)Características: Memória não-volátil (permanente). 
+Os dados continuam lá mesmo se o computador for desligado.
+Exemplos físicos: HD, SSD, Pen Drive.
+Formatos de arquivos comuns:Estruturados/Texto: JSON, CSV, TXT.
+Sistemas Complexos: SGBD (Sistemas de Gerenciamento de Bancos de Dados, como MySQL, PostgreSQL).
+
+Link para melhorar os estudos
+https://www.tutorialspoint.com/cplusplus/cpp_files_streams
+
+O LER só tem um padrão
+
+O ESCREVER tem n padroes. WRITE (SEMPRE CRIA NOVO); APPEND (ADICIONA NO FIM).
+
+Usar sempre o OPEN e o CLOSE. Entre o OPEN e o CLOSE haverá um looping, onde teremos tudo que será escrito/feito.
+
+c.ignore para limpar os dados do teclado
