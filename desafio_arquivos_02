@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <limits>
+
+using namespace std;
+
+// Definição da estrutura pedida
+struct Pessoa {
+    string nome;
+    string sobrenome;
+};
+
+int main() {
+    int opcao;
+    int n = 0;
+    vector<Pessoa> listaPessoas; // Vetor adaptado para usar a Struct
+
+    do {
+        cout << "\n--- MENU ---" << endl;
+        cout << "1 - Definir a quantidade de nomes" << endl;
+        cout << "2 - Cadastrar nomes" << endl;
+        cout << "3 - Listar alunos" << endl;
+        cout << "4 - Sair" << endl;
+        cout << "Opcao: ";
+        cin >> opcao;
+        
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        switch(opcao) {
+            case 1:
+                cout << "Quantos nomes voce deseja digitar? ";
+                cin >> n;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                
+                listaPessoas.resize(n); // Redimensiona o vetor de estruturas
+                cout << "Quantidade definida para " << n << " pessoas.\n";
+                break;
+
+            case 2:
+                if (n == 0) {
+                    cout << "[ERRO] Defina a quantidade na opcao 1 primeiro!\n";
+                } else {
+                    for (int i = 0; i < n; i++) {
+                        string nomeCompleto;
+                        cout << "Digite o " << i + 1 << "o nome completo: ";
+                        getline(cin, nomeCompleto);
+
+                        // Lógica para separar Nome de Sobrenome
+                        size_t primeiroEspaco = nomeCompleto.find(' ');
+                        
+                        if (primeiroEspaco != string::npos) {
+                            // Se achou um espaço, separa as duas partes
+                            listaPessoas[i].nome = nomeCompleto.substr(0, primeiroEspaco);
+                            listaPessoas[i].sobrenome = nomeCompleto.substr(primeiroEspaco + 1);
+                        } else {
+                            // Se a pessoa digitou só um nome sem espaço
+                            listaPessoas[i].nome = nomeCompleto;
+                            listaPessoas[i].sobrenome = "(Não informado)";
+                        }
+                    }
+                    cout << "Nomes cadastrados e separados com sucesso!\n";
+                }
+                break;
+
+            case 3:
+                if (listaPessoas.empty() || n == 0) {
+                    cout << "[AVISO] Nenhuma pessoa cadastrada ainda.\n";
+                } else {
+                    cout << "\n--- LISTA ARMAZENADA (STRUCT) ---\n";
+                    for (int i = 0; i < n; i++) {
+                        // Exibe os dados acessando os campos da struct (.nome e .sobrenome)
+                        cout << i + 1 << ". Nome: " << listaPessoas[i].nome 
+                             << " | Sobrenome: " << listaPessoas[i].sobrenome << endl;
+                    }
+                }
+                break;
+
+            case 4:
+                cout << "Saindo do programa...\n";
+                break;
+
+            default:
+                cout << "Opcao invalida!\n";
+                break;
+        }
+
+    } while (opcao != 4);
+
+    return 0;
+}
