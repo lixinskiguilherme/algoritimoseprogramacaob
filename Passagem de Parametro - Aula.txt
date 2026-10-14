@@ -1,0 +1,33 @@
+Passagem de Parametro
+     Copia
+     Referencia
+         Ponteiro { & *}
+
+Objetivo é estudar a passagem de retorno por parâmetro.
+
+Se eu tenho um endereço (&), logo tenho de ter um retorno por ponteiro (*).
+
+Exercicios de fixação com métodos
+      Retorno e sem retorno
+      passagem de parâmetro por valor com referencia
+
+
+
+Use como base os códigos trabalhados:
+	- populaVetor()
+	- exibirVetor()
+
+construa um método chamado exercicio1 que receba como parâmetro
+	VetorA, com n números sorteados
+	VetorB, com n números sorteados
+
+	e exiba os números que aparecem nos dois vetores;
+
+construa um método chamado exercicio2 que receba como parâmetros
+	VetorA, com n números sorteados
+	VetorB, com n números sorteados
+	Vetorresultado - que vai armazenar todos os número que aparecem nos dois vetores
+
+	ao final o vetor resultado deve ter seus dados retornados.
+
+Posso passar o retorno por return ou por referência. O ideal aqui é passar por referência.
